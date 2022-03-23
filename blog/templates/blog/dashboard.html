@@ -1,0 +1,59 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+{% block message %}
+ <div class='mt-4'>
+      {% if messages %}
+      {% for message in messages %}
+      <p {% if message.tags %} class= 'alert alert-{{message.tags}} mb-5' {% endif%}>{{message}}</p>
+      {% endfor %}
+      {% endif %} 
+   
+
+     
+
+{% endblock message %}
+
+{% block content %}
+<div class="col-sm-10">
+      <h3 class='text-white my-5'>DashBoard Page</h3>
+      <a href="{% url 'addpost' %}" class='btn btn-success'>Add Post</a>
+      <h4 class='text-center alert alert-info mt-3'>Show Post Information</h4>
+
+
+      {% if posts %}
+      <table class="table">
+            <thead>
+              <tr>
+                <th scope="col" style='width:2%'>ID</th>
+                <th scope="col" style='width:28%'>Title</th>
+                <th scope="col"style='width:55%'>Descriptiom</th>
+                <th scope="col"style='width:15%'>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+             {% for post in posts %}
+             <tr>
+                  <th scope="row">{{post.id}}</th>
+                  <td>{{post.title}}</td>
+                  <td>{{post.des}}</td>
+                  <td>
+                        <a href="{% url 'updatepost' post.id %}" class='btn btn-warning btn-sm'>Edit</a>
+                        <form action="" method="post" class='d-inline'>
+                              {% csrf_token %}
+                              <input type="submit" class='btn btn-danger btn-sm' value="Delete">
+                        </form>
+                  </td>
+                </tr>
+             {% endfor %}
+             
+            </tbody>
+          </table>
+          {% else %}
+          <h1>No Blog </h1>
+      {% endif %}
+</div>
+
+{% endblock content %}
+
+
+
