@@ -29,4 +29,9 @@ class postForm(forms.ModelForm):
       class Meta:
             model= Post
             fields = ['title','des']
-            labels ={'title': 'title','description':'des'}
+            labels ={'title': 'title','des':'description'}
+            widgets ={
+                  'title' :forms.TextInput(attrs={'class':'form-control'}),
+                  'des' :forms.Textarea(attrs={'class':'form-control'})
+
+            }
